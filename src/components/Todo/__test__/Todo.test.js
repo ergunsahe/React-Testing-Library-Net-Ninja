@@ -11,16 +11,29 @@ const MockTodo = () =>{
     )
 }
 
-describe("Todo", () =>{
-  it('should render same text passed in to title prop', () => {
-    render(<MockTodo />);
+const addTask = (tasks) =>{
     const inputElement = screen.getByPlaceholderText(/Add a new task here.../i)
     const buttonElement = screen.getByRole("button", {name:/Add/i})
-    fireEvent.change(inputElement, {target:{value:"Go grocery shopping"}})
-    fireEvent.click(buttonElement)
+
+    tasks.forEach(task =>{
+        fireEvent.change(inputElement, {target:{value:task}})
+        fireEvent.click(buttonElement)
+    })
+
+}
+
+describe("Todo", () =>{
+  it('should render interaction two component', () => {
+    render(<MockTodo />);
+    addTask(["Go grocery shopping"])
     const divElement = screen.getByText(/Go grocery shopping/i)
     expect(divElement).toBeInTheDocument()
-   
-    // expect(headingElement).toBeInTheDocument();
+  });
+
+  it('should render multiple tasks with interaction two component', () => {
+    render(<MockTodo />);
+    addTask(["Go grocery shopping", "Do your homework", "Clean your mind"])
+    const divElements = screen.getAllByTestId("task-container")
+    expect(divElements.length).toBe(3)
   });
 })
