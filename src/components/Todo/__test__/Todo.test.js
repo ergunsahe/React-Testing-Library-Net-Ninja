@@ -36,4 +36,19 @@ describe("Todo", () =>{
     const divElements = screen.getAllByTestId("task-container")
     expect(divElements.length).toBe(3)
   });
+
+  it('should render task with initially style class', () => {
+    render(<MockTodo />);
+    addTask(["Go grocery shopping"])
+    const divElement = screen.getByText(/Go grocery shopping/i)
+    expect(divElement).not.toHaveClass("todo-item-active")
+  });
+  
+  it('should render task with completed task style class', () => {
+    render(<MockTodo />);
+    addTask(["Go grocery shopping"])
+    const divElement = screen.getByText(/Go grocery shopping/i)
+    fireEvent.click(divElement)
+    expect(divElement).toHaveClass("todo-item-active")
+  });
 })
