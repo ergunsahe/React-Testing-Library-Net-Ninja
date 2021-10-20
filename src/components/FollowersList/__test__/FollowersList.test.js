@@ -17,10 +17,10 @@ describe("FollowersList", () =>{
     expect(followerDivElement).toBeInTheDocument();
   });
 
-  it('should render followerslist all items', async () => {
-    render(<MockFollowersList />);
-    const followerDivElements = await screen.findAllByTestId(/follower-item/i)
+  // it('should render followerslist all items', async () => {
+  //   render(<MockFollowersList />);
+  //   const followerDivElements = await screen.findAllByTestId(/follower-item/i)
    
-    expect(followerDivElements.length).toBe(5);
-  });
+  //   expect(followerDivElements.length).toBe(5);
+  // });
 })
